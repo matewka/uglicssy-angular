@@ -1,6 +1,6 @@
 {
   "name": "uglicssy-angular",
-  "version": "0.1.0-beta.0",
+  "version": "0.1.0",
   "description": "Uglicssy plugin for AngularJS applications.",
   "main": "src/main.js",
   "scripts": {
