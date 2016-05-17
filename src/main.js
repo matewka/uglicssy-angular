@@ -1,6 +1,6 @@
 'use strict';
 
-import htmlConverter from './html.converter';
+const htmlConverter = require('./html.converter');
 
 const preset = {
   converters: {

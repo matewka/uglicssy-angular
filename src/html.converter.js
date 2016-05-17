@@ -2,23 +2,16 @@
 
 const parser = require('recast');
 
-export default function angularHtmlConverter(node, classes, minifyFn) {
+function angularHtmlConverter(node, classes, minifyFn, verbose) {
   function convertNode(node, stringValue) {
     if (node.type === 'Literal') {
       node.value = minifyFn(node.value, classes);
     } else if (node.type === 'ObjectExpression') {
-      node.properties = node.properties.map((property) => {
-        if (property.key.type === 'Literal') {
-          property.key.value = minifyFn(property.key.value, classes);
-        }
-
-        return property;
-      });
+      node.properties = node.properties.map((property) => convertNode(property, stringValue));
     } else if (node.type === 'ArrayExpression') {
-      node.elements = node.elements.map((element) => {
-        element.value = minifyFn(element.value, classes);
-        return element;
-      });
+      node.elements = node.elements.map((element) => convertNode(element, stringValue));
+    } else if (node.type === 'Property') {
+      node.key = convertNode(node.key, stringValue);
     } else {
       console.info('Uglicssy-angular: unrecognized ng-class expression: ' + stringValue);
     }
@@ -32,7 +25,11 @@ export default function angularHtmlConverter(node, classes, minifyFn) {
         const parsed = parser.parse('(' + attr.value + ')');
         parsed.program.body.expression = convertNode(parsed.program.body[0].expression, attr.value);
         const convertedString = parser.print(parsed).code;
-        attr.value = convertedString.substr(1, convertedString.length - 2);
+        const value = convertedString.substr(1, convertedString.length - 2);
+
+        verbose.printConverted(attr.value, value, angularHtmlConverter);
+
+        attr.value = value;
       }
 
       return attr;
@@ -41,3 +38,5 @@ export default function angularHtmlConverter(node, classes, minifyFn) {
 
   return node;
 }
+
+module.exports = angularHtmlConverter;
