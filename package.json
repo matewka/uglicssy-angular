@@ -1,7 +1,7 @@
 {
-  "name": "uglicssy-angular",
+  "name": "uglicssy-preset-angular",
   "version": "0.1.0",
-  "description": "Uglicssy plugin for AngularJS applications.",
+  "description": "Uglicssy preset for AngularJS applications.",
   "main": "src/main.js",
   "scripts": {
     "test": "jasmine-node spec --color",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matewka/uglicssy-angular.git"
+    "url": "git+https://github.com/matewka/uglicssy-preset-angular.git"
   },
   "keywords": [
     "css",
@@ -20,9 +20,9 @@
   "author": "Mateusz Gawliński",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matewka/uglicssy-angular/issues"
+    "url": "https://github.com/matewka/uglicssy-preset-angular/issues"
   },
-  "homepage": "https://github.com/matewka/uglicssy-angular#readme",
+  "homepage": "https://github.com/matewka/uglicssy-preset-angular#readme",
   "dependencies": {
     "recast": "^0.11.2"
   }
